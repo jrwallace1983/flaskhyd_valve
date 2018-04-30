@@ -1,0 +1,43 @@
+
+from flask_sqlalchemy import SQLAlchemy
+from app import app
+from geoalchemy2.types import Geometry
+import geoalchemy2.functions as func
+import json
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
+from sqlalchemy import orm
+from sqlalchemy import Table, MetaData
+from sqlalchemy import create_engine
+
+db = SQLAlchemy(app)
+engine = create_engine('SELECT * FROM firehydjson')
+
+meta = MetaData()
+meta.reflect(engine)
+fire = meta.tables['firehydjson']
+addresses_table = meta.tables['addresses']
+
+class Fire(db.Model):
+
+    """represents an x/y coordinate location."""
+
+    __tablename__ = 'firehydrant'
+
+    id = db.Column(db.Integer, primary_key=True)
+    street = db.Column(db.String(30))
+    watertype = db.Column(db.String(30))
+
+'''class Fire(Base):
+    __table__ = Table('firehydjson', Base.metadata,
+                      db.Column('json_build_object', JSONB, primary_key=True))
+
+
+
+class ViewName(Base):
+    __table__ = Table('firehydjson', Base.metadata,
+        Column('id', Integer, primary_key=True),
+        Column('foreign_key', Integer, ForeignKey('sometablename.id'),
+            autoload=True, autoload_with=engine
+        )'''
