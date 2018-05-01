@@ -17,7 +17,8 @@ app.debug = True
 def layers_point():
     conn = psycopg2.connect("dbname='flaskmusic' user='Web'host='localhost' password='web'")
     cur = conn.cursor()
-    a = '''SELECT* FROM firehydjson UNION ALL SELECT* FROM sysvalvejson'''
+    #a = '''SELECT* FROM firehydjson UNION ALL SELECT* FROM sysvalvejson'''
+    a = '''SELECT* FROM geolayers'''
     cur.execute(a)
     jsonlist = cur.fetchall()
     return render_template('map.html', jsonlist=jsonlist)

@@ -5,8 +5,8 @@ from geoalchemy2.types import Geometry
 import geoalchemy2.functions as func
 import json
 from sqlalchemy.dialects.postgresql import JSONB
-#from sqlalchemy.ext.declarative import declarative_base
-#Base = declarative_base()
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
 
 
 db = SQLAlchemy(app)
